@@ -1,0 +1,6 @@
+[package]
+name = "bubble-shell"
+version = "0.1.0"
+authors = ["Josh Mcguigan"]
+
+[dependencies]

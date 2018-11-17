@@ -1,6 +1,8 @@
 # Bubble Shell
 
-Bubble shell is a learning project in the spirit of the [build-your-own-x](https://github.com/danistefanovic/build-your-own-x) list. In cases where there was a trade-off between simplicity and robustness I most often chose simplicity. 
+Bubble shell is a learning project in the spirit of the [build-your-own-x](https://github.com/danistefanovic/build-your-own-x) list. In cases where there was a trade-off between simplicity and robustness I most often chose simplicity.
+
+Check out the associated blog post - [Build Your Own Shell using Rust](https://www.joshmcguigan.com/blog/build-your-own-shell-rust/). 
 
 ## License
 

@@ -3,7 +3,7 @@ use std::io::{stdin, stdout, Write};
 use std::path::Path;
 use std::process::{Child, Command, Stdio};
 
-fn main(){
+fn main() {
     loop {
         // use the `>` character as the prompt
         // need to explicitly flush this to ensure it prints before read_line
@@ -18,8 +18,7 @@ fn main(){
         let mut commands = input.trim().split(" | ").peekable();
         let mut previous_command = None;
 
-        while let Some(command) = commands.next()  {
-
+        while let Some(command) = commands.next() {
             // everything after the first whitespace character is interpreted as args to the command
             let mut parts = command.trim().split_whitespace();
             let command = parts.next().unwrap();
@@ -35,12 +34,12 @@ fn main(){
                     }
 
                     previous_command = None;
-                },
+                }
                 "exit" => return,
                 command => {
-                    let stdin = previous_command
-                        .map_or(Stdio::inherit(),
-                                |output: Child| Stdio::from(output.stdout.unwrap()));
+                    let stdin = previous_command.map_or(Stdio::inherit(), |output: Child| {
+                        Stdio::from(output.stdout.unwrap())
+                    });
 
                     let stdout = if commands.peek().is_some() {
                         // there is another command piped behind this one
@@ -59,11 +58,13 @@ fn main(){
                         .spawn();
 
                     match output {
-                        Ok(output) => { previous_command = Some(output); },
+                        Ok(output) => {
+                            previous_command = Some(output);
+                        }
                         Err(e) => {
                             previous_command = None;
                             eprintln!("{}", e);
-                        },
+                        }
                     };
                 }
             }
@@ -73,6 +74,5 @@ fn main(){
             // block until the final command has finished
             final_command.wait().unwrap();
         }
-
     }
 }

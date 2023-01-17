@@ -20,8 +20,14 @@ fn main() {
 
         while let Some(command) = commands.next() {
             // everything after the first whitespace character is interpreted as args to the command
-            let mut parts = command.trim().split_whitespace();
-            let command = parts.next().unwrap();
+            let mut parts = command.split_whitespace();
+
+            // in case the command is an empty string, split_whitespace returns an empty iterator and next returns 'None'
+            let command = match parts.next() {
+                Some(command) => command,
+                None => continue,
+            };
+
             let args = parts;
 
             match command {
@@ -29,7 +35,7 @@ fn main() {
                     // default to '/' as new directory if one was not provided
                     let new_dir = args.peekable().peek().map_or("/", |x| *x);
                     let root = Path::new(new_dir);
-                    if let Err(e) = env::set_current_dir(&root) {
+                    if let Err(e) = env::set_current_dir(root) {
                         eprintln!("{}", e);
                     }
 

@@ -21,7 +21,7 @@ fn main() {
         while let Some(command) = commands.next() {
             // everything after the first whitespace character is interpreted as args to the command
             let mut parts = command.trim().split_whitespace();
-            let command = parts.next().unwrap();
+            let command = parts.next().unwrap_or("");
             let args = parts;
 
             match command {
